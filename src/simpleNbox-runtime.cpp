@@ -610,7 +610,8 @@ void SimpleNbox::stashCValues(double t, const double c[]) {
 // output stream
 
 double SimpleNbox::calc_co2fert(std::string biome, double time) const {
-  return 1 + beta.at(biome) * log(CO2_conc(time) / C0);
+  double vertical_shift = 1 - (1/(beta.at(biome) + 1));
+  return (CO2_conc(time) / C0) / (beta.at(biome) + (CO2_conc(time) / C0)) + vertical_shift;
 }
 
 //------------------------------------------------------------------------------
